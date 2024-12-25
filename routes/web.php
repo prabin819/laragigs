@@ -51,9 +51,36 @@ Route::get('/', function () {
     ]);
 });
 
-//single listing
-Route::get('/listings/{id}', function ($id) {
+// //single listing->gives error if id which is not present is given
+// Route::get('/listings/{id}', function ($id) {
+//     return view('listing', [
+//         'listing' => Listing::find($id)
+//     ]);
+// });
+
+
+// //remedy
+// Route::get('/listings/{id}', function ($id) {
+
+//     $listing = Listing::find($id);
+
+//     if($listing){
+//         return view('listing', [
+//             'listing' => $listing
+//         ]);
+//     }else{
+//         abort('404');
+//     }
+
+// });
+
+//remedy->instead we can do this
+//called ROUTE MODEL BINDING
+Route::get('/listings/{listing}', function (Listing $listing) {
+
     return view('listing', [
-        'listing' => Listing::find($id)
+        'listing' => $listing
     ]);
+
 });
+
