@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ListingController extends Controller
 {
@@ -25,6 +26,37 @@ class ListingController extends Controller
             'listing' => $listing
         ]);
     }
+
+    //show create form
+    public function create(){
+        return view('listings.create');
+    }
+
+
+    //store listing data
+    public function store(Request $request){//dependency injection
+        //dd($request->all());
+        $fromFields = $request->validate([
+            'title' => 'required',
+            'company' => ['required', Rule::unique('listings','company')],
+            'location' => 'required',
+            'website' => 'required',
+            'email' => ['required', 'email'],
+            'tags' => 'required',
+            'description' => 'required'
+        ], [
+            'title.required' => 'The title field is required.',
+            'company.required' => 'Please provide a company name.',
+            'company.unique' => 'This company already exists.',
+            'email.email' => 'Please enter a valid email address.',
+            'description.required' => 'The description is required.'
+        ]);
+
+        Listing::create($fromFields);
+
+        return redirect('/');
+    }
+
 }
 
 /*
@@ -37,3 +69,4 @@ edit - show form to edit listing
 update - update listing
 destroy - delete listing
 */
+

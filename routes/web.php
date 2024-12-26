@@ -75,7 +75,6 @@ Route::get('/', [ListingController::class, 'index']);
 
 //remedy->instead we can do this
 //called ROUTE MODEL BINDING
-Route::get('/listings/{listing}', [ListingController::class, 'show']);
 
 /*
 common resource routes:
@@ -87,3 +86,12 @@ edit - show form to edit listing
 update - update listing
 destroy - delete listing
 */
+
+//show create form
+Route::get('/listings/create', [ListingController::class, 'create']);
+
+//store listing data
+Route::post('/listings', [ListingController::class, 'store']);
+
+//single listing
+Route::get('/listings/{listing}', [ListingController::class, 'show']);
