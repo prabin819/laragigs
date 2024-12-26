@@ -1,10 +1,11 @@
 <?php
 
+use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\Listing;
+use App\Http\Controllers\ListingController;
 
-
+/*
 // Route::get('/hello', function () {
     //     return 'Hello world';
 // });
@@ -41,16 +42,13 @@ use App\Models\Listing;
 //     //dd($request);
 //     return $request->name . ' ' . $request->city;  //  /search?name=Prabin&city=Kathmandu
 // });
-
+*/
 
 //All listings
-Route::get('/', function () {
-    return view('listings', [
-        'heading' => 'Latest Listings',
-        'listings' => Listing::all()
-    ]);
-});
+Route::get('/', [ListingController::class, 'index']);
 
+
+/*
 // //single listing->gives error if id which is not present is given
 // Route::get('/listings/{id}', function ($id) {
 //     return view('listing', [
@@ -73,14 +71,9 @@ Route::get('/', function () {
 //     }
 
 // });
+*/
 
 //remedy->instead we can do this
 //called ROUTE MODEL BINDING
-Route::get('/listings/{listing}', function (Listing $listing) {
-
-    return view('listing', [
-        'listing' => $listing
-    ]);
-
-});
+Route::get('/listings/{listing}', [ListingController::class, 'show']);
 
