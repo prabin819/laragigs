@@ -89,7 +89,7 @@ destroy - delete listing
 */
 
 //show create form
-Route::get('/listings/create', [ListingController::class, 'create']);
+Route::get('/listings/create', [ListingController::class, 'create'])->middleware('auth');
 
 //store listing data
 Route::post('/listings', [ListingController::class, 'store']);
@@ -116,7 +116,7 @@ Route::post('/users', [UserController::class, 'store']);
 Route::post('/logout', [UserController::class, 'logout']);
 
 //show login form
-Route::get('/login', [UserController::class, 'login']);
+Route::get('/login', [UserController::class, 'login'])->name('login');
 
 //login user
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
