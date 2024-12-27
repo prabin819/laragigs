@@ -53,6 +53,10 @@ class ListingController extends Controller
             'description.required' => 'The description is required.'
         ]);
 
+        if($request->hasFile('logo')){
+            $fromFields['logo']=$request->file('logo')->store('logos','public');//wanna have a folder called logos
+        }
+
         Listing::create($fromFields);
 
         return redirect('/')->with('message','Listing Created successfully.');
